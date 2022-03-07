@@ -18,31 +18,31 @@ export default () => {
   return (
     <PageContainer>
       <Row gutter={[16, 24]}>
-      <Col className={styles.gutter} span={3}>
-        <div> <Link to="/fengkelian">楓カレン</Link></div>
-      </Col>
-      <Col className={styles.gutter} span={3}>
-        <div><Link to="/sangong">三宮つばき</Link></div>
-      </Col>
-      <Col className={styles.gutter} span={3}>
-        <div><Link to="/sanshangyouya">三上悠亜</Link></div>
-      </Col>
-      <Col className={styles.gutter} span={3}>
-        <div>col-6</div>
-      </Col>
-      <Col className={styles.gutter} span={3}>
-        <div>col-6</div>
-      </Col>
-      <Col className={styles.gutter} span={3}>
-        <div>col-6</div>
-      </Col>
-      <Col className={styles.gutter} span={3}>
-        <div>col-6</div>
-      </Col>
-      <Col className={styles.gutter} span={3}>
-        <div>col-6</div>
-      </Col>
-    </Row>
+        <Col className={styles.gutter} span={3}>
+          <div> <Link to="/fengkelian">楓カレン</Link></div>
+        </Col>
+        <Col className={styles.gutter} span={3}>
+          <div><Link to="/sangong">三宮つばき</Link></div>
+        </Col>
+        <Col className={styles.gutter} span={3}>
+          <div><Link to="/sanshangyouya">三上悠亜</Link></div>
+        </Col>
+        <Col className={styles.gutter} span={3}>
+          <div>col-6</div>
+        </Col>
+        <Col className={styles.gutter} span={3}>
+          <div>col-6</div>
+        </Col>
+        <Col className={styles.gutter} span={3}>
+          <div>col-6</div>
+        </Col>
+        <Col className={styles.gutter} span={3}>
+          <div>col-6</div>
+        </Col>
+        <Col className={styles.gutter} span={3}>
+          <div>col-6</div>
+        </Col>
+      </Row>
     </PageContainer>
   );
 };
