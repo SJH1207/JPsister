@@ -52,4 +52,5 @@ export default {
   'menu.fengkelian': '楓カレン',
   'menu.sangong': '三宮つばき',
   'menu.sanshangyouya': '三上悠亜',
+  'menu.test': '测试',
 };
