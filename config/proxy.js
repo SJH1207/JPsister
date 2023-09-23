@@ -9,7 +9,7 @@
 export default {
   dev: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: 'http://127.0.0.1:8080',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -18,7 +18,7 @@ export default {
   },
   test: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: 'http://127.0.0.1:8080',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -27,7 +27,7 @@ export default {
   },
   pre: {
     '/api/': {
-      target: 'your pre url',
+      target: 'http://127.0.0.1:8080',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
