@@ -31,7 +31,7 @@ const Login = ({ dispatch, history }) => {
           if (!history) return;
           const { query } = history.location;
           const { redirect } = query;
-          history.push(redirect || '/');
+          history.replace(redirect || '/');
           return;
         }
       },
@@ -170,7 +170,7 @@ const Login = ({ dispatch, history }) => {
 
 const mapStateToProps = (state) => {
   return {
-    userState: state.user,
+    currentState: state.user,
   };
 };
 export default connect(mapStateToProps)(Login);

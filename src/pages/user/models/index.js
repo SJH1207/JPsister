@@ -22,6 +22,8 @@ export default {
       });
       if (response && response.code === 200) {
         if (callback) callback(response);
+        localStorage.setItem('token', response.token);
+
         yield put({
           type: 'updateState',
           payload: {

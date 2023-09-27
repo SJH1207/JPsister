@@ -39,12 +39,6 @@ export default [
     name: 'sanshangyouya',
     component: './SanShangYouYa',
   },
-  {
-    path: '/test',
-    name: 'tset',
-    component: './Test',
-  },
-
 
   {
     path: '/',
