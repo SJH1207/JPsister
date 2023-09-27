@@ -27,7 +27,7 @@ Scripts provided in `package.json`. It's safe to modify or add additional script
 ```bash
 npm start
 ```
-
+ 
 ### Build project
 
 ```bash
