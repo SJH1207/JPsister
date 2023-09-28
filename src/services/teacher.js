@@ -14,6 +14,12 @@ export const search = async (data) => {
     data,
   });
 };
+// 查询
+export const searchTeacher = async (data) => {
+  return request.post('/searchTeacher', {
+    data,
+  });
+};
 // 新增
 export const add = async (data) => {
   return request.post('/add', {

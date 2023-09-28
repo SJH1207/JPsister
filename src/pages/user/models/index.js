@@ -23,6 +23,8 @@ export default {
         if (callback) callback(response);
         if (payload.autoLogin) {
           localStorage.setItem('token', response.token);
+          localStorage.setItem('username', response.username);
+          localStorage.setItem('nickname', response.nickname);
         }
 
         yield put({

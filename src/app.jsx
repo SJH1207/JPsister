@@ -33,7 +33,7 @@ export async function getInitialState() {
     };
     const res = await checkTokenFunc();
     if (res.code === 200) {
-      history.replace('/');
+      history.replace(history.location || '/');
     }
   }
   // const fetchUserInfo = async () => {
@@ -66,9 +66,8 @@ export const layout = ({ initialState }) => {
     waterMarkProps: {
       content: initialState?.currentUser?.name,
     },
-    // footerRender: () => <Footer />,
+    // footerRender: () => <Footer />,  
     onPageChange: () => {
-      console.log(1111111);
       const { location } = history; // 如果没有登录，重定向到 login
 
       if ((!localStorage.getItem('token') || localStorage.getItem('token').length === 0) && location.pathname !== loginPath) {

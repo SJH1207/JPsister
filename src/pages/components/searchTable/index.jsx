@@ -188,7 +188,9 @@ const SearchTable = ({ dispatch, teacher_name }) => {
       <ProTable
         columns={columns}
         dataSource={data}
-        search={true}
+        search={{
+          defaultCollapsed: false,
+        }}
         onSubmit={(value) => {
           console.log(value);
           dispatch({
