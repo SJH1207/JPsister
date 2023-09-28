@@ -3,6 +3,7 @@ import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
+import { checkToken } from './services/user';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -16,6 +17,25 @@ export const initialStateConfig = {
  * */
 
 export async function getInitialState() {
+  if (!localStorage.getItem('token') || localStorage.getItem('token').length === 0) {
+    history.push(loginPath);
+  } else {
+    const checkTokenFunc = async () => {
+      try {
+        const res = await checkToken({
+          token: localStorage.getItem('token'),
+        });
+        return res;
+      } catch (error) {
+        history.push(loginPath);
+      }
+      return undefined;
+    };
+    const res = await checkTokenFunc();
+    if (res.code === 200) {
+      history.replace('/');
+    }
+  }
   // const fetchUserInfo = async () => {
   //   try {
   //     const msg = await queryCurrentUser();
@@ -51,11 +71,7 @@ export const layout = ({ initialState }) => {
       console.log(1111111);
       const { location } = history; // 如果没有登录，重定向到 login
 
-      if (
-        localStorage.getItem('token') &&
-        localStorage.getItem('token').length === 0 &&
-        location.pathname !== loginPath
-      ) {
+      if ((!localStorage.getItem('token') || localStorage.getItem('token').length === 0) && location.pathname !== loginPath) {
         history.push(loginPath);
       }
     },

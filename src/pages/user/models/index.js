@@ -18,11 +18,12 @@ export default {
       const response = yield call(login, {
         username: payload.username,
         password: payload.password,
-        // ...payload,
       });
       if (response && response.code === 200) {
         if (callback) callback(response);
-        localStorage.setItem('token', response.token);
+        if (payload.autoLogin) {
+          localStorage.setItem('token', response.token);
+        }
 
         yield put({
           type: 'updateState',

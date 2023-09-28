@@ -15,3 +15,11 @@ export const login = async (data) => {
     data,
   });
 };
+
+// 校验token
+export const checkToken = async (data) => {
+  console.log('data', data);
+  return request.post('/checkToken', {
+    data,
+  });
+};
