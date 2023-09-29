@@ -1,4 +1,4 @@
-import { login } from '@/services/user';
+import { login, regUser } from '@/services/user';
 
 export default {
   namespace: 'user',
@@ -33,6 +33,15 @@ export default {
             token: response.token,
           },
         });
+      }
+    },
+    // 注册
+    *regUser({ payload, callback }, { call, put, select }) {
+      const state = yield select((state) => state);
+      console.log('state', state);
+      const response = yield call(regUser, payload);
+      if (response && response.code === 200) {
+        if (callback) callback(response);
       }
     },
   },

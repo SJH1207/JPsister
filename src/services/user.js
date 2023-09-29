@@ -16,6 +16,14 @@ export const login = async (data) => {
   });
 };
 
+// 注册
+export const regUser = async (data) => {
+  console.log('data', data);
+  return request.post('/regUser', {
+    data,
+  });
+};
+
 // 校验token
 export const checkToken = async (data) => {
   console.log('data', data);
