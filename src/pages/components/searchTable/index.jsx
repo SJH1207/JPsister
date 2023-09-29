@@ -7,16 +7,18 @@ import ProTable from '@ant-design/pro-table';
 import { connect } from 'dva';
 
 const { confirm } = Modal;
-const SearchTable = ({ dispatch, teacher_name }) => {
+const SearchTable = ({ dispatch, teacher_name, teacher_code, collection }) => {
   const columns = [
     {
       title: '姓名',
       dataIndex: 'teacher_name',
+      width: '10%',
       hideInSearch: true,
     },
     {
       title: '番号',
       dataIndex: 'video_code_ch',
+      width: '10%',
       render: (text, record) => {
         if (record.chinese === '1') {
           return record.video_code_ch;
@@ -27,15 +29,18 @@ const SearchTable = ({ dispatch, teacher_name }) => {
     },
     {
       title: '磁力',
+      width: '30%',
       dataIndex: 'magnet',
     },
     {
       title: '片名',
+      width: '30%',
       dataIndex: 'video_name',
     },
     {
       title: '是否为中文',
       dataIndex: 'chinese',
+      width: '10%',
       hideInSearch: true,
       render: (text, record) => {
         if (record.chinese === '1') {
@@ -48,6 +53,7 @@ const SearchTable = ({ dispatch, teacher_name }) => {
     {
       title: '操作',
       hideInSearch: true,
+      width: '10%',
       render: (text, record) => {
         return (
           <div>
@@ -108,6 +114,9 @@ const SearchTable = ({ dispatch, teacher_name }) => {
     dispatch({
       type: 'teacher/search',
       payload: {
+        status: '1',
+        collection,
+        teacher_code,
         teacher_name,
         order,
       },
@@ -127,7 +136,7 @@ const SearchTable = ({ dispatch, teacher_name }) => {
         if (modalName === '新增') {
           dispatch({
             type: 'teacher/add',
-            payload: { teacher_name, ...values },
+            payload: { teacher_code, teacher_name, collection, status: '1', ...values },
             callback: (data) => {
               if (data.code === 200) {
                 message.success('新增成功！');
@@ -177,7 +186,7 @@ const SearchTable = ({ dispatch, teacher_name }) => {
       setTimeout(() => {
         dispatch({
           type: 'teacher/add',
-          payload: { teacher_name, ...values },
+          payload: { teacher_code, teacher_name, collection, status: '1', ...values },
         });
       }, 2000 * (index + 1));
     });
@@ -195,10 +204,7 @@ const SearchTable = ({ dispatch, teacher_name }) => {
           console.log(value);
           dispatch({
             type: 'teacher/search',
-            payload: {
-              teacher_name,
-              ...value,
-            },
+            payload: { status: '1', collection, teacher_code, teacher_name, ...value },
             callback: (res) => {
               if (res.code === 200) {
                 setData(res.data);
@@ -225,16 +231,16 @@ const SearchTable = ({ dispatch, teacher_name }) => {
             <PlusOutlined />
             新建
           </Button>,
-          <Button
-            type="primary"
-            key="primary"
-            onClick={() => {
-              addMore();
-            }}
-          >
-            <PlusOutlined />
-            批量新建
-          </Button>,
+          // <Button
+          //   type="primary"
+          //   key="primary"
+          //   onClick={() => {
+          //     addMore();
+          //   }}
+          // >
+          //   <PlusOutlined />
+          //   批量新建
+          // </Button>,
           <Button
             type="primary"
             key="primary"
@@ -256,14 +262,22 @@ const SearchTable = ({ dispatch, teacher_name }) => {
         centered
         forceRender
         maskClosable={false}
-        open={showModal}
+        visible={showModal}
         onOk={add}
         onCancel={() => {
           form.resetFields();
           setShowModal(false);
         }}
       >
-        <Form form={form} name="teacher" initialValues={{ chinese: '1' }} autoComplete="off">
+        <Form
+          form={form}
+          name="teacher"
+          initialValues={{
+            chinese: '1',
+            teacher_name: teacher_name === '单集' ? '' : teacher_name,
+          }}
+          autoComplete="off"
+        >
           <Form.Item
             label="番号"
             name="video_code"
@@ -272,14 +286,27 @@ const SearchTable = ({ dispatch, teacher_name }) => {
             <Input
               placeholder="请输入番号!"
               onChange={(e) => {
-                form.setFieldValue('video_code', e.target.value.toUpperCase());
+                form.setFieldsValue({
+                  video_code: e.target.value.toUpperCase(),
+                });
                 if (form.getFieldValue('chinese') == 1) {
-                  form.setFieldValue('video_code_ch', e.target.value.toUpperCase() + '-C');
+                  form.setFieldsValue({
+                    video_code_ch: e.target.value.toUpperCase() + '-C',
+                  });
                 } else {
-                  form.setFieldValue('video_code_ch', e.target.value.toUpperCase());
+                  form.setFieldsValue({
+                    video_code_ch: e.target.value.toUpperCase(),
+                  });
                 }
               }}
             />
+          </Form.Item>
+          <Form.Item
+            label="姓名"
+            name="teacher_name"
+            rules={[{ required: true, message: '请输入姓名!' }]}
+          >
+            <Input placeholder="请输入姓名!" />
           </Form.Item>
           <Form.Item
             label="磁力"
@@ -302,17 +329,28 @@ const SearchTable = ({ dispatch, teacher_name }) => {
           >
             <Radio.Group
               onChange={(e) => {
-                let list = form.getFieldValue('video_code_ch').split('-');
+                let list = form.getFieldValue('video_code_ch');
+                if (!(list && list.length > 0)) {
+                  return;
+                }
+                list = list.split('-');
                 console.log(e.target.value, list);
-                if (list.length === 2) {
-                  if (e.target.value == 1) {
+                if (e.target.value == 1) {
+                  // 中文
+                  if (list[list.length - 1] === 'C') {
+                  } else {
                     list = [...list, 'C'];
-                    form.setFieldValue('video_code_ch', list.join('-').toUpperCase());
+                    form.setFieldsValue({
+                      video_code_ch: list.join('-').toUpperCase(),
+                    });
                   }
-                } else if (list.length > 2) {
-                  if (e.target.value == 0) {
+                } else {
+                  if (list[list.length - 1] === 'C') {
                     list = list.slice(0, list.length - 1);
-                    form.setFieldValue('video_code_ch', list.join('-').toUpperCase());
+                    form.setFieldsValue({
+                      video_code_ch: list.join('-').toUpperCase(),
+                    });
+                  } else {
                   }
                 }
               }}

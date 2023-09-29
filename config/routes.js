@@ -25,6 +25,11 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/danji',
+    name: 'danji',
+    component: './DanJi',
+  },
+  {
     path: '/fengkelian',
     name: 'fengkelian',
     component: './FengKeLian',
@@ -39,6 +44,7 @@ export default [
     name: 'sanshangyouya',
     component: './SanShangYouYa',
   },
+
 
   {
     path: '/',
