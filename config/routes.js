@@ -44,6 +44,11 @@ export default [
     name: 'sanshangyouya',
     component: './SanShangYouYa',
   },
+  {
+    path: '/qiaobenyoucai',
+    name: 'qiaobenyoucai',
+    component: './QiaoBenYouCai',
+  },
 
 
   {

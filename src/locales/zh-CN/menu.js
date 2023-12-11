@@ -53,4 +53,5 @@ export default {
   'menu.sangong': '三宮つばき',
   'menu.sanshangyouya': '三上悠亜',
   'menu.danji': '单集',
+  'menu.qiaobenyoucai': '橋本ありな',
 };
