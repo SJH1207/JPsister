@@ -181,7 +181,11 @@ const SearchTable = ({ dispatch, teacher_name, teacher_code, collection }) => {
   };
 
   const addMore = () => {
-    let list = [];
+    // video_code   magnet  video_name  chinese  video_code_ch
+    let list = [
+      // {video_code:'SSNI-209',video_code_ch:'SSNI-209-C', video_name:'偷偷拍摄桥本有菜的隐私性交',magnet:'magnet:?xt=urn:btih:38200AB62EF276541A0E7699D7BEBA1F5B14583D',chinese:'1'},
+      // {video_code:'SSNI-233',video_code_ch:'SSNI-233-C', video_name:'桥本有菜绝顶怒涛激烈性交',magnet:'magnet:?xt=urn:btih:2B9AA8BDB516861B2994CFF958A9C57BAAB90062',chinese:'1'},
+    ];
     list.map((values, index) => {
       setTimeout(() => {
         dispatch({
@@ -231,16 +235,16 @@ const SearchTable = ({ dispatch, teacher_name, teacher_code, collection }) => {
             <PlusOutlined />
             新建
           </Button>,
-          // <Button
-          //   type="primary"
-          //   key="primary"
-          //   onClick={() => {
-          //     addMore();
-          //   }}
-          // >
-          //   <PlusOutlined />
-          //   批量新建
-          // </Button>,
+          <Button
+            type="primary"
+            key="primary"
+            onClick={() => {
+              addMore();
+            }}
+          >
+            <PlusOutlined />
+            批量新建
+          </Button>,
           <Button
             type="primary"
             key="primary"
